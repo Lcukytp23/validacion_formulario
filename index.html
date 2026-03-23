@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1 class="center margen">VALIDACION DE ELEMENTOS DE FORMULARIO</h1>
+    <br>
+    <form action="loquesea.php" method="get" class="margen ancho" name="formulario" id="formulario">
+
+        <h2>DATOS ALUMNO:</h2>
+
+        <input type="text" placeholder="Escribe tu nombre" maxlength="30" class="elementos2" id="nombrecompleto">
+        <br>
+        <input type="email" placeholder="Escribe tu emial" class="elementos2" id="email">
+        <br><br>
+
+        <h2>ACTIVIDADES EXTRAESCOLARES</h2>
+        
+        <input type="checkbox" id="curso1" value="deporte" name="curso1" class="caja actividades">
+        <label for="curso1">Deporte (futbol, beisbol, basketball, volibol)</label>
+        <br>
+        <input type="checkbox" id="curso2" value="programacion" name="curso2" class="caja actividades">
+        <label for="curso2">Club de Programacion</label>
+        <br>
+        <input type="checkbox" id="curso3" value="capitulo" name="curso3" class="caja actividades">
+        <label for="curso3">Capitulo de Sistemas</label>
+
+        <br><br>
+
+        <h2>DOMINIO DEL IDIOMA INGLES:</h2>
+        <input type="radio" name="estado_civil" id="Avanzado" class="caja actividades2" value="Soltero">
+        <label for="Avanzado">Avanzado</label>
+        <br>
+        <input type="radio" name="estado_civil" id="Intermedio" class="caja actividades2" value="Soltero">
+        <label for="Intermedio">Intermedio</label>
+        <br>
+        <input type="radio" name="estado_civil" id="Basico" class="caja actividades2" value="Soltero">
+        <label for="Basico">Basico</label>
+
+        <br><br>
+
+        <h2>UNIDADES</h2>
+        <br>
+
+        <select name="" id="unidades" class="op">
+            <option value="">Seleciona una opción</option>
+            <option value="Unidad 1">Unidad 1</option>
+            <option value="Unidad 2">Unidad 2</option>
+            <option value="Unidad 3">Unidad 3</option>
+            <option value="Proyecto Final">Proyecto Final</option>
+        </select>
+
+        <br><br><br>
+
+        <button type="button" class="btn_rojo" id="btn_validar">Validar Elementos</button>
+
+    </form>
+
+    <!-- validar formuladrio -->
+    <script>
+        $(document).ready(function (){
+            $("#btn_validar").click(function (){
+                let nombre = $("#nombrecompleto").val().trim();
+                let email = $("#email").val().trim();
+                let unidades = $("#unidades").val();
+                let expresionCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (nombre === ''){
+                    alert("No escribiste tu nombre");
+                    $("#nombrecompleto").focus();
+                    return false;
+                }
+
+                if (email === ''){
+                    alert("No escribiste tu email");
+                    $("#email").focus();
+                    return false;
+                }
+
+                if(!expresionCorreo.test(email)){
+                    alert("Escribe un email válido");
+                    $("#emial").focus();
+                    return false;
+                }
+
+                //Checkbox
+
+                if(!$(".actividades").is(":checked")){
+                    alert("Debes selecionar al menos una actividad extraescolar");
+                    $(".actividades").first().focus();
+                    return false;
+                }
+
+
+                //Radio
+                if(!$(".actividades2").is(":checked")){
+                    alert("Debes selecionar al menos una Idioma");
+                    $(".actividades2").first().focus();
+                    return false;
+                }
+
+                //select
+                if(unidades === ''){
+                    alert("Debes selecionar una opción en unidades");
+                    $("#unidades").focus();
+                    return false;
+                }
+
+
+
+
+                $("#formulario")[0].submit();
+            });
+        });
+    </script>
+</body>
+</html>
